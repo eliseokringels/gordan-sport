@@ -1,0 +1,234 @@
+/* SilverE HordanG Janson5 - Zen Edition 
+   Vollständiges CSS für die Blanko-Version 
+*/
+
+:root {
+    --bg-zen: #0d0e0f;          /* Tiefes Schwarz */
+    --card-zen: #161718;        /* Dunkles Grau für die Karten */
+    --accent-red: #bc002d;      /* Japan-Rot */
+    --text-silver: #e0e0e0;     /* Hellgrauer Text */
+    --text-dim: #666666;        /* Dunkelgrauer Text für Inaktives */
+    --border-soft: #252627;     /* Subtile Trennlinien */
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-zen);
+    color: var(--text-silver);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    line-height: 1.6;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Header mit Zen-Akzent */
+header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-weight: 200;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--white);
+    outline: none;
+}
+
+#current-date {
+    color: var(--accent-red);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+/* Karten-Design */
+.card {
+    background: var(--card-zen);
+    margin-bottom: 12px;
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--border-soft); /* Standard-Rand */
+    transition: border-left 0.4s ease;
+}
+
+/* Aktueller Tag bekommt den roten Rand */
+.card-active {
+    border-left: 3px solid var(--accent-red);
+}
+
+.tag-header {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tag-name {
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.fokus-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    padding: 2px 0;
+    width: 140px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.fokus-input:focus {
+    color: var(--accent-red);
+    border-bottom: 1px solid var(--accent-red);
+}
+
+/* Übungsbereich */
+.card-content {
+    padding: 0 20px 20px 20px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.exercise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exercise-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.exercise-item:last-child {
+    border-bottom: none;
+}
+
+/* Inputs */
+.edit-input {
+    background: transparent;
+    border: none;
+    color: var(--text-silver);
+    font-size: 1rem;
+    flex: 1;
+    outline: none;
+}
+
+.edit-input.done {
+    text-decoration: line-through;
+    color: var(--text-dim);
+    opacity: 0.5;
+}
+
+.weight-input {
+    background: #000;
+    border: 1px solid var(--border-soft);
+    color: var(--accent-red);
+    padding: 4px;
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+    outline: none;
+}
+
+/* Buttons */
+.btn-add {
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    color: var(--text-dim);
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+}
+
+.btn-add:hover {
+    color: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.btn-remove:hover {
+    color: var(--accent-red);
+}
+
+/* Checkbox Customizing */
+input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    left: 3px;
+    top: -1px;
+}
+
+/* Scrollbar für das Zen-Feeling */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-zen);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-soft);
+}
+.kanji-power {
+    color: var(--accent-red);
+    font-size: 2rem;
+    display: block;
+    margin-top: 10px;
+    font-weight: 200;
+    text-align: center;
+}
