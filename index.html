@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Workout Tracker Blanko</title>
+    <title>Gordans Sport App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="video1.mp4" type="video/mp4">
+            Ihr Browser unterstützt keine Videos.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
     <div class="app-container">
         <header>
-            <h1 contenteditable="true">Mein Trainingsplan</h1>
-            <span class="kanji-power">力</span> <p id="current-date"></p>
+            <h1 contenteditable="true">Gordans Sport App</h1>
+            <span class="kanji-power">力</span>
+            <p id="current-date"></p>
+            
+            <div class="fokus-controls">
+                <button id="fokus-toggle" onclick="toggleFokusModus()">
+                    Fokus-Modus: AUS
+                </button>
+            </div>
         </header>
         
         <div id="workout-list"></div>
