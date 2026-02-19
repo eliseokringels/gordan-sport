@@ -1,15 +1,26 @@
-/* SilverE HordanG Janson5 - Zen Edition 
-   Vollständiges CSS für die Blanko-Version 
-*/
+/* Gordans Sport App - Zen Edition (Naruto Fix) */
 
 :root {
-    --bg-zen: #0d0e0f;          /* Tiefes Schwarz */
-    --card-zen: #161718;        /* Dunkles Grau für die Karten */
-    --accent-red: #bc002d;      /* Japan-Rot */
-    --text-silver: #e0e0e0;     /* Hellgrauer Text */
-    --text-dim: #666666;        /* Dunkelgrauer Text für Inaktives */
-    --border-soft: #252627;     /* Subtile Trennlinien */
+    --bg-zen: #0d0e0f;
+    --card-zen: rgba(22, 23, 24, 0.85);
+    --accent-red: #bc002d;
+    --text-silver: #e0e0e0;
+    --text-dim: #666666;
+    --border-soft: #252627;
     --white: #ffffff;
+    --glass-blur: blur(10px);
+
+    /* Naruto Chakra Colors */
+    --glow-montag: #ff4500;    /* Naruto */
+    --glow-dienstag: #1e90ff;   /* Sasuke */
+    --glow-mittwoch: #32cd32;   /* Rock Lee */
+    --glow-donnerstag: #bc002d; /* Itachi */
+    --glow-freitag: #9370db;    /* Orochimaru */
+    --glow-samstag: #ffd700;    /* Minato */
+    --glow-sonntag: #ffffff;    /* Kakashi */
+    
+    /* Fallback-Variable */
+    --current-glow: var(--border-soft);
 }
 
 * {
@@ -26,93 +37,137 @@ body {
     display: flex;
     justify-content: center;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
+/* --- VIDEO BACKGROUND --- */
+.video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -10;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#bg-video {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    z-index: -9;
+}
+
+/* --- LAYOUT & HEADER --- */
 .app-container {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 450px;
 }
 
-/* Header mit Zen-Akzent */
 header {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(13, 14, 15, 0.8);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-soft);
+    border-bottom: 3px solid var(--accent-red);
+    border-radius: 0 0 20px 20px;
 }
 
 header h1 {
     font-weight: 200;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     letter-spacing: 4px;
     text-transform: uppercase;
-    margin: 0;
     color: var(--white);
-    outline: none;
+    margin: 0;
+}
+
+.kanji-power {
+    color: var(--accent-red);
+    font-size: 2.2rem;
+    display: block;
+    margin: 10px 0;
 }
 
 #current-date {
     color: var(--accent-red);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     letter-spacing: 2px;
-    margin-top: 10px;
 }
 
-/* Karten-Design */
+/* --- KARTEN LOGIK --- */
 .card {
     background: var(--card-zen);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     margin-bottom: 12px;
     border: 1px solid var(--border-soft);
-    border-left: 3px solid var(--border-soft); /* Standard-Rand */
-    transition: border-left 0.4s ease;
+    border-left: 4px solid var(--border-soft);
+    transition: all 0.4s ease;
 }
 
-/* Aktueller Tag bekommt den roten Rand */
+/* Chakra Zuweisung */
+.tag-montag { --current-glow: var(--glow-montag); }
+.tag-dienstag { --current-glow: var(--glow-dienstag); }
+.tag-mittwoch { --current-glow: var(--glow-mittwoch); }
+.tag-donnerstag { --current-glow: var(--glow-donnerstag); }
+.tag-freitag { --current-glow: var(--glow-freitag); }
+.tag-samstag { --current-glow: var(--glow-samstag); }
+.tag-sonntag { --current-glow: var(--glow-sonntag); }
+
+/* Aktiver Glow Effekt */
 .card-active {
-    border-left: 3px solid var(--accent-red);
+    border-left: 4px solid var(--current-glow) !important;
+    animation: chakra-pulse 2.5s infinite ease-in-out;
+    background: rgba(22, 23, 24, 0.95);
 }
 
+.card-active .tag-name {
+    color: var(--white);
+    text-shadow: 0 0 10px var(--current-glow);
+}
+
+@keyframes chakra-pulse {
+    0% { box-shadow: 0 0 5px var(--current-glow); }
+    50% { box-shadow: 0 0 20px var(--current-glow); }
+    100% { box-shadow: 0 0 5px var(--current-glow); }
+}
+
+/* --- INTERNALS --- */
 .tag-header {
-    padding: 18px 20px;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
 }
 
-.tag-name {
-    font-size: 1.1rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    margin: 0;
-}
-
 .fokus-input {
     background: transparent;
     border: none;
-    border-bottom: 1px solid transparent;
     color: var(--text-dim);
-    font-size: 0.75rem;
-    padding: 2px 0;
-    width: 140px;
+    font-size: 0.8rem;
+    width: 100%;
     outline: none;
-    transition: all 0.3s;
 }
 
-.fokus-input:focus {
-    color: var(--accent-red);
-    border-bottom: 1px solid var(--accent-red);
-}
-
-/* Übungsbereich */
 .card-content {
-    padding: 0 20px 20px 20px;
+    padding: 10px 20px 20px;
     border-top: 1px solid var(--border-soft);
-}
-
-.exercise-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .exercise-item {
@@ -120,19 +175,13 @@ header h1 {
     border-bottom: 1px solid var(--border-soft);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
-.exercise-item:last-child {
-    border-bottom: none;
-}
-
-/* Inputs */
 .edit-input {
     background: transparent;
     border: none;
     color: var(--text-silver);
-    font-size: 1rem;
     flex: 1;
     outline: none;
 }
@@ -140,95 +189,65 @@ header h1 {
 .edit-input.done {
     text-decoration: line-through;
     color: var(--text-dim);
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .weight-input {
-    background: #000;
+    background: rgba(0,0,0,0.5);
     border: 1px solid var(--border-soft);
-    color: var(--accent-red);
-    padding: 4px;
-    width: 50px;
+    color: var(--current-glow);
+    padding: 5px;
+    width: 60px;
     text-align: center;
-    font-weight: bold;
-    outline: none;
+    border-radius: 4px;
 }
 
-/* Buttons */
-.btn-add {
+#fokus-toggle {
     background: transparent;
-    border: 1px solid var(--border-soft);
-    color: var(--text-dim);
-    width: 100%;
-    padding: 10px;
+    border: 1px solid var(--accent-red);
+    color: var(--accent-red);
+    padding: 8px 15px;
     margin-top: 15px;
     cursor: pointer;
     text-transform: uppercase;
     font-size: 0.7rem;
-    letter-spacing: 2px;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
 
-.btn-add:hover {
-    color: var(--accent-red);
-    border-color: var(--accent-red);
+#fokus-toggle:hover {
+    background: var(--accent-red);
+    color: white;
 }
 
-.btn-remove {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 5px;
-    transition: color 0.2s;
-}
-
-.btn-remove:hover {
-    color: var(--accent-red);
-}
-
-/* Checkbox Customizing */
+/* Checkbox Custom */
 input[type="checkbox"] {
     appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--border-soft);
-    background: transparent;
+    width: 20px; height: 20px;
+    border: 1px solid var(--current-glow);
     cursor: pointer;
-    position: relative;
-    outline: none;
 }
 
 input[type="checkbox"]:checked {
-    background: var(--accent-red);
-    border-color: var(--accent-red);
+    background: var(--current-glow);
 }
-
-input[type="checkbox"]:checked::after {
-    content: "✓";
-    position: absolute;
-    color: white;
-    font-size: 12px;
-    left: 3px;
-    top: -1px;
+.ninja-symbol {
+    color: var(--current-glow);
+    margin-left: 10px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 5px var(--current-glow));
 }
-
-/* Scrollbar für das Zen-Feeling */
-::-webkit-scrollbar {
-    width: 5px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-zen);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--border-soft);
-}
-.kanji-power {
-    color: var(--accent-red);
-    font-size: 2rem;
-    display: block;
-    margin-top: 10px;
-    font-weight: 200;
-    text-align: center;
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Stärkeres Abdunkeln: von 90% Schwarz oben zu 75% Schwarz unten */
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.75) 50%, 
+        rgba(0, 0, 0, 0.85) 100%
+    );
+    z-index: -9;
 }
